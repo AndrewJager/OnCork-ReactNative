@@ -10,7 +10,7 @@ import {
   FlatList,
   SectionList,
   Button,
-  Alert
+  ActivityIndicator,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -21,7 +21,38 @@ export default class HomeScreen extends React.Component {
     header: null,
   };
 
+  constructor(props){
+    super(props);
+    this.state ={ isLoading: true}
+  }
+
+  componentDidMount(){
+    return fetch('https://oncork.herokuapp.com/teams/api/team/')
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson.users,
+        }, function(){
+
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+  }
+
   render() {
+    if(this.state.isLoading){
+      return(
+        <View style={{flex: 1, padding: 20}}>
+          <ActivityIndicator/>
+        </View>
+      )
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.header}>
@@ -40,8 +71,9 @@ export default class HomeScreen extends React.Component {
             />
           </View>
 
-          <SectionList
-          renderItem={({item, index, section, empImage}) => <View style={styles.employee}>
+          {/* <SectionList
+          data={this.state.dataSource}
+          renderItem={({item, index, section}) => <View style={styles.employee}>
             <Image source={{uri: 'https://pbs.twimg.com/profile_images/576457817990758400/qh8rfo2B_400x400.jpeg'}}
             style={{width: 70, height: 70}}>
 
@@ -49,7 +81,7 @@ export default class HomeScreen extends React.Component {
             <Text style={styles.employeeText}>{item}</Text>
             <Button
               onPress={() => {
-                Alert(getMoviesFromApiAsync())
+                
               }}
               title="Press Me"
             />
@@ -64,7 +96,27 @@ export default class HomeScreen extends React.Component {
             {title: 'Out', data: ['Hear', 'Me?']},
           ]}
           keyExtractor={(item, index) => item + index }
+        /> */}
+
+        <View style={{flex: 1, paddingTop:20}}>
+        <FlatList
+          data={this.state.dataSource}
+          renderItem={({item}) =><View style={styles.employee}>
+          <Image source={{uri: 'https://pbs.twimg.com/profile_images/576457817990758400/qh8rfo2B_400x400.jpeg'}}
+          style={{width: 70, height: 70}}>
+
+          </Image>
+          <Text style={styles.employeeText}>{item.username}</Text>
+          <Button
+            onPress={() => {
+              
+            }}
+            title="Press Me"
+          />
+        </View>}
+          keyExtractor={({id}, index) => id}
         />
+      </View>
 		  
         </ScrollView>
 
@@ -84,17 +136,6 @@ export default class HomeScreen extends React.Component {
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
   };
-}
-
-function getMoviesFromApiAsync() {
-  return fetch('https://facebook.github.io/react-native/movies.json')
-    .then((response) => response.json())
-    .then((responseJson) => {
-      return responseJson.movies;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
 }
 
 const styles = StyleSheet.create({

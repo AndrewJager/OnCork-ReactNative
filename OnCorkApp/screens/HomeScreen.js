@@ -8,8 +8,7 @@ import {
   TouchableOpacity,
   View,
   FlatList,
-  List,
-  ListItem,
+  SectionList,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -42,7 +41,7 @@ export default class HomeScreen extends React.Component {
           <View style={styles.container}>
             <FlatList
               data={[
-                {key: 'Devin'},
+                {key: 'Devin',},
                 {key: 'Jackson'},
                 {key: 'James'},
                 {key: 'Joel'},
@@ -63,6 +62,26 @@ export default class HomeScreen extends React.Component {
               </View>}
             />
           </View>
+
+          <SectionList
+          renderItem={({item, index, section, empImage}) => <View style={styles.employee}>
+            <Image source={{uri: 'https://pbs.twimg.com/profile_images/576457817990758400/qh8rfo2B_400x400.jpeg'}}
+            style={{width: 70, height: 70}}>
+
+            </Image>
+            <Text style={styles.employeeText}>{item}</Text>
+          </View>
+          }
+          renderSectionHeader={({section: {title}}) => (
+            <Text style={{fontWeight: 'bold'}}>{title}</Text>
+          )}
+          sections={[
+            {title: 'In office', data: ['Test', 'item', 'item2']},
+            {title: 'Remote', data: ['item3', 'item4']},
+            {title: 'Out', data: ['item5', 'item6']},
+          ]}
+          keyExtractor={(item, index, empImage) => item + index}
+        />
 		  
         </ScrollView>
 

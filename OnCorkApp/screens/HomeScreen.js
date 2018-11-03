@@ -15,7 +15,7 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
-import FontAwesome, { Icons } from 'react-native-fontawesome';
+
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -57,16 +57,22 @@ export default class HomeScreen extends React.Component {
     return (
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
 
-        <View style={{flex: 1, paddingTop:20, backgroundColor: 'black'}}>
+        <View style={{flex: 1, paddingTop:20, backgroundColor: 'white'}}>
         <FlatList
           data={this.state.dataSource}
           renderItem={({item}) =><View style={styles.employee}>
-            <Image source={{uri: 'https://pbs.twimg.com/profile_images/576457817990758400/qh8rfo2B_400x400.jpeg'}}
-            style={{width: 70, height: 70}}>
+            <Image source={{uri: getImage(item.profile_picture)}}
+            style={{width: 70, height: 70, borderRadius: 8, marginLeft: -8}}>
 
             </Image>
-            <Text style={styles.employeeText}>{item.name}</Text>
-            <Text style={styles.statusText}>{item.status_text}</Text>
+            <Text style={{ marginTop: 15, marginLeft: 4,
+                fontSize: 20, color: 'black', fontWeight: 'bold'}}>
+                {item.name}</Text>
+            <Text style={{fontSize: 16,
+              marginTop: 45,
+              position: "absolute",  bottom: 10, left: 75, color: getTextColor(item.status)}}>
+              {item.status_text}
+            </Text>
            
             <View style={{width: 50, height: 50, backgroundColor: getStatusColor(item.status), position: "absolute",  bottom: 10, right: 0}} />
           
@@ -95,10 +101,28 @@ export default class HomeScreen extends React.Component {
 
 function getStatusColor(input){
   if (input){
-    return 'green';
+    return '#82D570';
   }
   else{
-    return 'red';
+    return '#D1484F';
+  }
+}
+
+function getTextColor(input){
+  if (input){
+    return '#82D570';
+  }
+  else{
+    return '#D1484F';
+  }
+}
+
+function getImage(input){
+  if (input == null){
+    return './assets/images/robot-prod.png';
+  }
+  else{
+    return input;
   }
 }
 

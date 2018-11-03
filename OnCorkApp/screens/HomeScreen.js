@@ -30,12 +30,23 @@ export default class HomeScreen extends React.Component {
           <View style={styles.welcomeContainer}>
             <Image
               source={
-                __DEV__
-                  ? require('../assets/images/robot-dev.png')
-                  : require('../assets/images/robot-prod.png')
+                require('../assets/images/robot-dev.png')
               }
               style={styles.welcomeImage}
             />
+          </View>
+
+          <View style={styles.employee}>
+          <Image
+              source={
+                require('../assets/images/robot-dev.png')
+              }
+              style={styles.welcomeImage}
+            />
+          
+            <Text style={styles.getStartedText}>
+              Employee name
+            </Text>  
           </View>
 
           <View style={styles.getStartedContainer}>
@@ -99,6 +110,11 @@ export default class HomeScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  employee: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'row',
+  },
   container: {
     flex: 1,
     backgroundColor: '#fff',

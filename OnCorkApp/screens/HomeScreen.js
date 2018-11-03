@@ -9,6 +9,8 @@ import {
   View,
   FlatList,
   SectionList,
+  Button,
+  Alert
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -38,31 +40,6 @@ export default class HomeScreen extends React.Component {
             />
           </View>
 
-          <View style={styles.container}>
-            <FlatList
-              data={[
-                {key: 'Devin',},
-                {key: 'Jackson'},
-                {key: 'James'},
-                {key: 'Joel'},
-                {key: 'John'},
-                {key: 'Jillian'},
-                {key: 'Jimmy'},
-                {key: 'Julie'},
-              ]}
-              renderItem={({item}) => 
-              <View style={styles.employee}>
-                <Image source={
-                  require('../assets/images/robot-dev.png')
-                }
-                style={styles.welcomeImage}>
-
-                </Image>
-                <Text style={styles.employeeText}>{item.key}</Text>
-              </View>}
-            />
-          </View>
-
           <SectionList
           renderItem={({item, index, section, empImage}) => <View style={styles.employee}>
             <Image source={{uri: 'https://pbs.twimg.com/profile_images/576457817990758400/qh8rfo2B_400x400.jpeg'}}
@@ -70,17 +47,23 @@ export default class HomeScreen extends React.Component {
 
             </Image>
             <Text style={styles.employeeText}>{item}</Text>
+            <Button
+              onPress={() => {
+                Alert(getMoviesFromApiAsync())
+              }}
+              title="Press Me"
+            />
           </View>
           }
           renderSectionHeader={({section: {title}}) => (
-            <Text style={{fontWeight: 'bold'}}>{title}</Text>
+            <Text style={{fontWeight: 'bold', fontSize: 24, textAlign: 'center'}}>{title}</Text>
           )}
           sections={[
-            {title: 'In office', data: ['Test', 'item', 'item2']},
-            {title: 'Remote', data: ['item3', 'item4']},
-            {title: 'Out', data: ['item5', 'item6']},
+            {title: 'In office', data: ['Andrew', 'Matthew', 'Someone']},
+            {title: 'Remote', data: ['Can', 'You']},
+            {title: 'Out', data: ['Hear', 'Me?']},
           ]}
-          keyExtractor={(item, index, empImage) => item + index}
+          keyExtractor={(item, index) => item + index }
         />
 		  
         </ScrollView>
@@ -89,28 +72,8 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  _maybeRenderDevelopmentModeWarning() {
-    if (__DEV__) {
-      const learnMoreButton = (
-        <Text onPress={this._handleLearnMorePress} style={styles.helpLinkText}>
-          Learn more
-        </Text>
-      );
-
-      return (
-        <Text style={styles.developmentModeText}>
-          Development mode is enabled, your app will be slower but you can use useful development
-          tools. {learnMoreButton}
-        </Text>
-      );
-    } else {
-      return (
-        <Text style={styles.developmentModeText}>
-          You are not in development mode, your app will run at full speed.
-        </Text>
-      );
-    }
-  }
+  
+  
 
   _handleLearnMorePress = () => {
     WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
@@ -121,6 +84,17 @@ export default class HomeScreen extends React.Component {
       'https://docs.expo.io/versions/latest/guides/up-and-running.html#can-t-see-your-changes'
     );
   };
+}
+
+function getMoviesFromApiAsync() {
+  return fetch('https://facebook.github.io/react-native/movies.json')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson.movies;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 const styles = StyleSheet.create({
@@ -233,3 +207,4 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+

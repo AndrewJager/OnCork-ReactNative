@@ -7,6 +7,9 @@ import {
   Text,
   TouchableOpacity,
   View,
+  FlatList,
+  List,
+  ListItem,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -36,37 +39,29 @@ export default class HomeScreen extends React.Component {
             />
           </View>
 
-          <View style={styles.employee}>
-          <Image
-              source={
-                require('../assets/images/robot-dev.png')
-              }
-              style={styles.welcomeImage}
+          <View style={styles.container}>
+            <FlatList
+              data={[
+                {key: 'Devin'},
+                {key: 'Jackson'},
+                {key: 'James'},
+                {key: 'Joel'},
+                {key: 'John'},
+                {key: 'Jillian'},
+                {key: 'Jimmy'},
+                {key: 'Julie'},
+              ]}
+              renderItem={({item}) => 
+              <View style={styles.employee}>
+                <Image source={
+                  require('../assets/images/robot-dev.png')
+                }
+                style={styles.welcomeImage}>
+
+                </Image>
+                <Text style={styles.employeeText}>{item.key}</Text>
+              </View>}
             />
-          
-            <Text style={styles.getStartedText}>
-              Employee name
-            </Text>  
-          </View>
-
-          <View style={styles.getStartedContainer}>
-            {this._maybeRenderDevelopmentModeWarning()}
-
-            <Text style={styles.getStartedText}>Get started by opening</Text>
-
-            <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-              <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
-            </View>
-
-            <Text style={styles.getStartedText}>
-              Change this text and your app will automatically reload.
-            </Text>
-          </View>
-
-          <View style={styles.helpContainer}>
-            <TouchableOpacity onPress={this._handleHelpPress} style={styles.helpLink}>
-              <Text style={styles.helpLinkText}>Help, it didn’t automatically reload!</Text>
-            </TouchableOpacity>
           </View>
 		  
         </ScrollView>
@@ -111,9 +106,15 @@ export default class HomeScreen extends React.Component {
 
 const styles = StyleSheet.create({
   employee: {
-    alignItems: 'center',
+    textAlign: 'center',
+    marginLeft: 10,
     flex: 1,
+    
     flexDirection: 'row',
+  },
+  employeeText: {
+    marginTop: 30,
+    fontSize: 24,
   },
   container: {
     flex: 1,
@@ -133,6 +134,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 10,
     marginBottom: 20,
+  },
+  item: {
+    padding: 10,
+    fontSize: 18,
+    height: 44,
   },
   welcomeImage: {
     width: 100,

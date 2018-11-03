@@ -71,48 +71,19 @@ export default class HomeScreen extends React.Component {
             />
           </View>
 
-          {/* <SectionList
-          data={this.state.dataSource}
-          renderItem={({item, index, section}) => <View style={styles.employee}>
-            <Image source={{uri: 'https://pbs.twimg.com/profile_images/576457817990758400/qh8rfo2B_400x400.jpeg'}}
-            style={{width: 70, height: 70}}>
-
-            </Image>
-            <Text style={styles.employeeText}>{item}</Text>
-            <Button
-              onPress={() => {
-                
-              }}
-              title="Press Me"
-            />
-          </View>
-          }
-          renderSectionHeader={({section: {title}}) => (
-            <Text style={{fontWeight: 'bold', fontSize: 24, textAlign: 'center'}}>{title}</Text>
-          )}
-          sections={[
-            {title: 'In office', data: ['Andrew', 'Matthew', 'Someone']},
-            {title: 'Remote', data: ['Can', 'You']},
-            {title: 'Out', data: ['Hear', 'Me?']},
-          ]}
-          keyExtractor={(item, index) => item + index }
-        /> */}
-
         <View style={{flex: 1, paddingTop:20}}>
         <FlatList
           data={this.state.dataSource}
           renderItem={({item}) =><View style={styles.employee}>
-          <Image source={{uri: 'https://pbs.twimg.com/profile_images/576457817990758400/qh8rfo2B_400x400.jpeg'}}
-          style={{width: 70, height: 70}}>
+            <Image source={{uri: 'https://pbs.twimg.com/profile_images/576457817990758400/qh8rfo2B_400x400.jpeg'}}
+            style={{width: 70, height: 70}}>
 
-          </Image>
-          <Text style={styles.employeeText}>{item.username}</Text>
-          <Button
-            onPress={() => {
-              
-            }}
-            title="Press Me"
-          />
+            </Image>
+            <Text style={styles.employeeText}>{item.username}</Text>
+            <Text style={styles.statusText}>{item.status_text}</Text>
+           
+            <View style={{width: 50, height: 50, backgroundColor: getStatusColor(item.status), position: "absolute",  bottom: 10, right: 0}} />
+          
         </View>}
           keyExtractor={({id}, index) => id}
         />
@@ -138,7 +109,21 @@ export default class HomeScreen extends React.Component {
   };
 }
 
+function getStatusColor(input){
+  if (input){
+    return 'green';
+  }
+  else{
+    return 'red';
+  }
+}
+
 const styles = StyleSheet.create({
+  statusText: {
+    fontSize: 16,
+    marginTop: 45,
+    position: "absolute",  bottom: 10, left: 75,
+  },
   employee: {
     textAlign: 'center',
     marginLeft: 10,
@@ -147,7 +132,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   employeeText: {
-    marginTop: 30,
+    marginTop: 15,
     fontSize: 24,
   },
   container: {

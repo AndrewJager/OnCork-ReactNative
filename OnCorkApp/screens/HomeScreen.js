@@ -15,6 +15,7 @@ import {
 import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
+import FontAwesome, { Icons } from 'react-native-fontawesome';
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -54,24 +55,9 @@ export default class HomeScreen extends React.Component {
     }
 
     return (
-      <View style={styles.container}>
-        <Text style={styles.header}>
-          <Text style={styles.helpLinkText}>Header</Text>
-        </Text>
-      <View style={styles.helpContainer}>
-      
-      </View>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.welcomeContainer}>
-            <Image
-              source={
-                require('../assets/images/robot-dev.png')
-              }
-              style={styles.welcomeImage}
-            />
-          </View>
 
-        <View style={{flex: 1, paddingTop:20}}>
+        <View style={{flex: 1, paddingTop:20, backgroundColor: 'black'}}>
         <FlatList
           data={this.state.dataSource}
           renderItem={({item}) =><View style={styles.employee}>
@@ -79,7 +65,7 @@ export default class HomeScreen extends React.Component {
             style={{width: 70, height: 70}}>
 
             </Image>
-            <Text style={styles.employeeText}>{item.username}</Text>
+            <Text style={styles.employeeText}>{item.name}</Text>
             <Text style={styles.statusText}>{item.status_text}</Text>
            
             <View style={{width: 50, height: 50, backgroundColor: getStatusColor(item.status), position: "absolute",  bottom: 10, right: 0}} />
@@ -89,9 +75,7 @@ export default class HomeScreen extends React.Component {
         />
       </View>
 		  
-        </ScrollView>
-
-      </View>
+      </ScrollView>
     );
   }
 
@@ -123,6 +107,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 45,
     position: "absolute",  bottom: 10, left: 75,
+    color: 'white',
   },
   employee: {
     textAlign: 'center',
@@ -134,6 +119,7 @@ const styles = StyleSheet.create({
   employeeText: {
     marginTop: 15,
     fontSize: 24,
+    color: 'white',
   },
   container: {
     flex: 1,

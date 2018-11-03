@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, ActivityIndicator, Text, View  } from 'react-native';
+import { FlatList, ActivityIndicator, Text, View, Button, TextInput,  } from 'react-native';
 
 export default class FetchExample extends React.Component {
 
@@ -29,23 +29,35 @@ export default class FetchExample extends React.Component {
 
 
   render(){
-
-    if(this.state.isLoading){
-      return(
-        <View style={{flex: 1, padding: 20}}>
-          <ActivityIndicator/>
-        </View>
-      )
-    }
-
     return(
-      <View style={{flex: 1, paddingTop:20}}>
-        <FlatList
-          data={this.state.dataSource}
-          renderItem={({item}) => <Text>{item.username}, {item.status_text}, {item.status}</Text>}
-          keyExtractor={({id}, index) => id}
-        />
-      </View>
-    );
+      <View>
+        <Button
+        onPress={() => {
+          Alert.alert('You tapped the button!');
+        }}
+        title='Here'
+      />
+      <Button
+        onPress={() => {
+          Alert.alert('You tapped the button!');
+        }}
+        title='Away'
+      />
+      <TextInput
+        style={{height: 40}}
+        placeholder="Enter status message"
+        onChangeText={(text) => this.setState({text})}
+      />
+    </View>
+    )
+  }
+}
+
+function getButtonText(input){
+  if (input){
+    return 'Sign in';
+  }
+  else{
+    return 'Sign out';
   }
 }

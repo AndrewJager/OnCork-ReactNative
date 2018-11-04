@@ -5,12 +5,14 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
+  TouchableHighlight,
   View,
   FlatList,
   SectionList,
   Button,
   ActivityIndicator,
+  Alert,
+  AlertIOS,
 } from 'react-native';
 import { WebBrowser } from 'expo';
 
@@ -60,21 +62,24 @@ export default class HomeScreen extends React.Component {
         <View style={{flex: 1, paddingTop:20, backgroundColor: 'white'}}>
         <FlatList
           data={this.state.dataSource}
-          renderItem={({item}) =><View style={styles.employee}>
+          renderItem={({item}) =>
+          
+          <View style={styles.employee}>
             <Image source={{uri: getImage(item.profile_picture)}}
             style={{width: 70, height: 70, borderRadius: 8, marginLeft: -8}}>
 
             </Image>
+            <TouchableHighlight onPress={this._handleLearnMorePress.bind(this, item)}>
             <Text style={{ marginTop: 15, marginLeft: 4,
                 fontSize: 20, color: 'black', fontWeight: 'bold'}}>
-                {item.name}</Text>
+                {item.name}</Text></TouchableHighlight>
             <Text style={{fontSize: 16,
               marginTop: 45, fontWeight: 'bold',
               position: "absolute",  bottom: 10, left: 65, color: getTextColor(item.status)}}>
               {item.status_text}
             </Text>
            
-          
+              
         </View>}
           keyExtractor={({id}, index) => id}
         />
@@ -84,11 +89,9 @@ export default class HomeScreen extends React.Component {
     );
   }
 
-  
-  
 
-  _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
+  _handleLearnMorePress = (item) => {
+    Alert.alert('Contact', 'Email:' + item.email + "\n" + 'Slack:' + item.slack + "\n" + 'Phone:'+ item.phone + "\n" + 'Timezone:' + item.timezone)
   };
 
   _handleHelpPress = () => {

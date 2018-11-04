@@ -69,12 +69,11 @@ export default class HomeScreen extends React.Component {
                 fontSize: 20, color: 'black', fontWeight: 'bold'}}>
                 {item.name}</Text>
             <Text style={{fontSize: 16,
-              marginTop: 45,
-              position: "absolute",  bottom: 10, left: 75, color: getTextColor(item.status)}}>
+              marginTop: 45, fontWeight: 'bold',
+              position: "absolute",  bottom: 10, left: 65, color: getTextColor(item.status)}}>
               {item.status_text}
             </Text>
            
-            <View style={{width: 50, height: 50, backgroundColor: getStatusColor(item.status), position: "absolute",  bottom: 10, right: 0}} />
           
         </View>}
           keyExtractor={({id}, index) => id}

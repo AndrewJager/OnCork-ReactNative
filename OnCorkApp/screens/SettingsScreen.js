@@ -45,7 +45,12 @@ export default class FetchExample extends React.Component {
       />
       <TextInput
         style={{height: 40}}
-        placeholder="Enter status message"
+        placeholder="Team ID"
+        onChangeText={(text) => this.setState({text})}
+      />
+      <TextInput
+        style={{height: 40}}
+        placeholder="User ID"
         onChangeText={(text) => this.setState({text})}
       />
     </View>

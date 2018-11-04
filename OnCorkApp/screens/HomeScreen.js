@@ -91,7 +91,7 @@ export default class HomeScreen extends React.Component {
 
 
   _handleLearnMorePress = (item) => {
-    Alert.alert('Contact', 'Email:' + item.email + "\n" + 'Slack:' + item.slack + "\n" + 'Phone:'+ item.phone + "\n" + 'Timezone:' + item.timezone)
+    Alert.alert('Contact', 'Email: ' + item.email + "\n" + 'Slack: ' + item.slack + "\n" + 'Phone: '+ item.phone + "\n" + 'Timezone: ' + item.timezone)
   };
 
   _handleHelpPress = () => {

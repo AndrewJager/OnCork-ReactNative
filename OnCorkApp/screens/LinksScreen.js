@@ -32,13 +32,16 @@ export default class LinksScreen extends React.Component {
   render(){
     return(
       <View style={{flex: 1, paddingTop:20, backgroundColor: 'white'}}>
+      <Text style={{fontWeight: 'bold', fontSize: 20}}>Annoucements:</Text>
       <FlatList
         data={this.state.dataSource}
         renderItem={({item}) =>
        <View> 
-        <Text>{item.title}</Text>
+        <Text></Text>
+        <Text style={{fontSize: 15, fontWeight: 'bold'}}>{item.title}</Text>
         <Text>{item.text}</Text> 
         <Text>{item.created}</Text>
+        <Text></Text>
         </View>
             
       }
